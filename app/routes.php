@@ -37,3 +37,13 @@ Route::post('sign-up', [
 	'as' 	=> 'register',
 	'uses'	=> 'UsersController@register'
 ]);
+
+Route::post('login', [
+    'as' => 'login',
+    'uses' => 'AuthController@login'
+]);
+
+Route::get('logout', [
+   'as' => 'logout',
+   'uses' => 'AuthController@logout'
+]);
