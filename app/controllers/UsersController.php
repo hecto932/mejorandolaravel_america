@@ -3,7 +3,7 @@
 use HireMe\Entities\User;
 use HireMe\Managers\RegisterManager;
 use HireMe\Repositories\CandidateRepo;
-use HireMe\Components\Field;
+use HireMe\Managers\AccountManager;
 
 class UsersController extends BaseController {
 
@@ -19,40 +19,28 @@ class UsersController extends BaseController {
 			return View::make('users/sign-up');
 	}
 
-	public function register()
-	{
-		$user = $this->candidateRepo->newCandidate();
-		$manager = new RegisterManager($user, Input::all());
+    public function register()
+    {
+        $user = $this->candidateRepo->newCandidate();
+        $manager = new RegisterManager($user, Input::all());
+        $manager->save();
 
+        return Redirect::route('home');
+    }
 
-		if($manager->save())
-		{
-			return Redirect::to('/');
-		}
+    public function account()
+    {
+        $user = Auth::user();
+        return View::make('users/account', compact('user'));
+    }
 
-		return Redirect::back()->withInput()->withErrors($manager->getErrors());
+    public function updateAccount()
+    {
+        $user = Auth::user();
+        $manager = new AccountManager($user, Input::all());
 
-		/* ANTES
-		$data = Input::only(['full_name', 'email', 'password', 'password_confirmation']);
+        $manager->save();
 
-		$rules 	= [
-			'full_name' 			=> 'required',
-			'email'					=> 'required|email|unique:users,email',
-			'password' 				=> 'required|confirmed',
-			'password_confirmation'	=> 'required'
-		]; 
-
-		$validation = \Validator::make($data, $rules);
-
-		if($validation->passes())
-		{
-			$user = new User($data);
-			$user->type = 'candidate';
-			$user->save();
-			//User::create($data);
-			return Redirect::to('/');
-		}
-		return Redirect::back()->withInput()->withErrors($validation->messages());
-		*/
-	}
+        return Redirect::route('home');
+    }
 }
