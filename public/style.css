@@ -6,12 +6,11 @@ body {
 
 .error_message
 {
-	background: red;
+	background: #d9534f;
 	color: white;
-	border-radius: 0.4em;
+	border-radius: 0px 0px 4px 4px;
 	font-size: 1em;
 	font-weight: bold;
 	padding: 0.5em;
-	margin-top: 5px;
 	font-family: monospace;
 }

@@ -3,6 +3,7 @@
 use HireMe\Entities\User;
 use HireMe\Managers\RegisterManager;
 use HireMe\Repositories\CandidateRepo;
+use HireMe\Components\Field;
 
 class UsersController extends BaseController {
 
@@ -15,7 +16,7 @@ class UsersController extends BaseController {
 
 	public function signUp()
 	{
-		return View::make('users/sign-up');
+			return View::make('users/sign-up');
 	}
 
 	public function register()
